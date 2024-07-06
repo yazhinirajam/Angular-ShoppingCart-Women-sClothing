@@ -1,0 +1,37 @@
+<div class="registration-container">
+    <h2>New Registration</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" formControlName="username" class="form-control"
+               [ngClass]="{ 'invalid-field': getFormControl('username')?.invalid && getFormControl('username')?.touched }">
+        <div *ngIf="getFormControl('username')?.invalid && getFormControl('username')?.touched" class="error-message">
+          Username is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" class="form-control"
+               [ngClass]="{ 'invalid-field': getFormControl('email')?.invalid && getFormControl('email')?.touched }">
+        <div *ngIf="getFormControl('email')?.invalid && getFormControl('email')?.touched" class="error-message">
+          Email must be a valid Gmail address.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <div class="password-input-container">
+          <input type="password" id="password" formControlName="password" class="form-control"
+                 [ngClass]="{ 'invalid-field': getFormControl('password')?.invalid && getFormControl('password')?.touched }">
+          <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()">
+            <i class="fas fa-eye" *ngIf="!showPassword"></i>
+            <i class="fas fa-eye-slash" *ngIf="showPassword"></i>
+          </button>
+        </div>
+        <div *ngIf="getFormControl('password')?.invalid && getFormControl('password')?.touched" class="error-message">
+          Password must be at least 6 characters long, contain one special character, and two numbers.
+        </div>
+      </div>
+      <button type="submit" [disabled]="registrationForm.invalid" class="btn btn-primary">Register</button>
+    </form>
+  </div>
+  
